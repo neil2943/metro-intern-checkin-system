@@ -9,7 +9,113 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      admins: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          name: string
+          role: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          name: string
+          role?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          name?: string
+          role?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      attendance: {
+        Row: {
+          check_in_time: string | null
+          check_out_time: string | null
+          created_at: string | null
+          date: string
+          id: string
+          intern_id: string | null
+          notes: string | null
+          status: Database["public"]["Enums"]["attendance_status"]
+        }
+        Insert: {
+          check_in_time?: string | null
+          check_out_time?: string | null
+          created_at?: string | null
+          date: string
+          id?: string
+          intern_id?: string | null
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+        }
+        Update: {
+          check_in_time?: string | null
+          check_out_time?: string | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          intern_id?: string | null
+          notes?: string | null
+          status?: Database["public"]["Enums"]["attendance_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_intern_id_fkey"
+            columns: ["intern_id"]
+            isOneToOne: false
+            referencedRelation: "interns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      interns: {
+        Row: {
+          created_at: string | null
+          department: string
+          email: string
+          end_date: string | null
+          id: string
+          intern_id: string
+          is_active: boolean | null
+          name: string
+          phone: string | null
+          start_date: string
+        }
+        Insert: {
+          created_at?: string | null
+          department: string
+          email: string
+          end_date?: string | null
+          id?: string
+          intern_id: string
+          is_active?: boolean | null
+          name: string
+          phone?: string | null
+          start_date: string
+        }
+        Update: {
+          created_at?: string | null
+          department?: string
+          email?: string
+          end_date?: string | null
+          id?: string
+          intern_id?: string
+          is_active?: boolean | null
+          name?: string
+          phone?: string | null
+          start_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +124,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      attendance_status: "present" | "absent" | "late"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +239,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      attendance_status: ["present", "absent", "late"],
+    },
   },
 } as const
