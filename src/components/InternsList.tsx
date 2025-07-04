@@ -4,17 +4,36 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Users, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
-export const InternsList = ({ interns, attendanceData }) => {
-  const getAttendanceStatus = (internId) => {
+interface Intern {
+  id: string;
+  intern_id: string;
+  name: string;
+  department: string;
+}
+
+interface AttendanceRecord {
+  intern_id: string;
+  status: 'present' | 'absent' | 'late';
+  check_in_time?: string;
+  check_out_time?: string;
+}
+
+interface InternsListProps {
+  interns: Intern[];
+  attendanceData: AttendanceRecord[];
+}
+
+export const InternsList = ({ interns, attendanceData }: InternsListProps) => {
+  const getAttendanceStatus = (internId: string) => {
     const record = attendanceData.find(record => record.intern_id === internId);
     return record ? record.status : 'absent';
   };
 
-  const getAttendanceRecord = (internId) => {
+  const getAttendanceRecord = (internId: string) => {
     return attendanceData.find(record => record.intern_id === internId);
   };
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case 'present':
         return (
@@ -46,7 +65,7 @@ export const InternsList = ({ interns, attendanceData }) => {
     }
   };
 
-  const formatTime = (timeString) => {
+  const formatTime = (timeString?: string) => {
     if (!timeString) return '--';
     return new Date(timeString).toLocaleTimeString('en-IN', {
       hour: '2-digit',

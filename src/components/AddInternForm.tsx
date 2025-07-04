@@ -20,7 +20,12 @@ const DEPARTMENTS = [
   'IT & Technology'
 ];
 
-export const AddInternForm = ({ onInternAdded, onCancel }) => {
+interface AddInternFormProps {
+  onInternAdded: () => void;
+  onCancel: () => void;
+}
+
+export const AddInternForm = ({ onInternAdded, onCancel }: AddInternFormProps) => {
   const [formData, setFormData] = useState({
     intern_id: '',
     name: '',
@@ -32,7 +37,7 @@ export const AddInternForm = ({ onInternAdded, onCancel }) => {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -62,7 +67,7 @@ export const AddInternForm = ({ onInternAdded, onCancel }) => {
     return true;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) return;

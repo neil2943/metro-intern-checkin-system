@@ -51,7 +51,7 @@ const InternManagement = () => {
     });
   };
 
-  const handleToggleActive = async (internId, currentStatus) => {
+  const handleToggleActive = async (internId: string, currentStatus: boolean) => {
     try {
       const { error } = await supabase
         .from('interns')
