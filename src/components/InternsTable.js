@@ -5,29 +5,12 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Users, Mail, Phone, Calendar, ToggleLeft, ToggleRight } from 'lucide-react';
 
-interface Intern {
-  id: string;
-  intern_id: string;
-  name: string;
-  email: string;
-  department: string;
-  phone?: string;
-  start_date: string;
-  end_date?: string;
-  is_active: boolean;
-}
-
-interface InternsTableProps {
-  interns: Intern[];
-  onToggleActive: (internId: string, currentStatus: boolean) => void;
-}
-
-export const InternsTable = ({ interns, onToggleActive }: InternsTableProps) => {
-  const formatDate = (dateString: string) => {
+export const InternsTable = ({ interns, onToggleActive }) => {
+  const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-IN');
   };
 
-  const getStatusBadge = (isActive: boolean) => {
+  const getStatusBadge = (isActive) => {
     return isActive ? (
       <Badge variant="default" className="bg-green-100 text-green-800 border-green-200">
         Active

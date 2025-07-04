@@ -9,20 +9,8 @@ import { InternsTable } from '@/components/InternsTable';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
-interface Intern {
-  id: string;
-  intern_id: string;
-  name: string;
-  email: string;
-  department: string;
-  phone?: string;
-  start_date: string;
-  end_date?: string;
-  is_active: boolean;
-}
-
 const InternManagement = () => {
-  const [interns, setInterns] = useState<Intern[]>([]);
+  const [interns, setInterns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
   const { toast } = useToast();
@@ -63,7 +51,7 @@ const InternManagement = () => {
     });
   };
 
-  const handleToggleActive = async (internId: string, currentStatus: boolean) => {
+  const handleToggleActive = async (internId, currentStatus) => {
     try {
       const { error } = await supabase
         .from('interns')
