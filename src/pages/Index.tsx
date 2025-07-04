@@ -1,20 +1,21 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import { Clock, Users, CheckCircle, XCircle, AlertCircle, Settings } from 'lucide-react';
 import { AttendanceForm } from '@/components/AttendanceForm';
 import { InternsList } from '@/components/InternsList';
 import { AttendanceStats } from '@/components/AttendanceStats';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const [interns, setInterns] = useState([]);
   const [attendanceData, setAttendanceData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -89,13 +90,23 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            DMRC Intern Attendance System
-          </h1>
-          <p className="text-gray-600">
-            Welcome to the Delhi Metro Rail Corporation intern attendance portal
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              DMRC Intern Attendance System
+            </h1>
+            <p className="text-gray-600">
+              Welcome to the Delhi Metro Rail Corporation intern attendance portal
+            </p>
+          </div>
+          <Button
+            onClick={() => navigate('/manage-interns')}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <Settings className="h-4 w-4" />
+            Manage Interns
+          </Button>
         </div>
 
         {/* Stats Cards */}
