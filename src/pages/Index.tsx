@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, Calendar, Settings, UserPlus, LogIn } from 'lucide-react';
+import { Users, Calendar, Settings, UserPlus, LogIn, GraduationCap } from 'lucide-react';
 import { InternsList } from '@/components/InternsList';
 import { AttendanceForm } from '@/components/AttendanceForm';
 import { AttendanceStats } from '@/components/AttendanceStats';
@@ -123,6 +122,13 @@ const Index = () => {
             </p>
           </div>
           <div className="flex gap-2">
+            <Button
+              onClick={() => navigate('/learning-dashboard')}
+              className="flex items-center gap-2"
+            >
+              <GraduationCap className="h-4 w-4" />
+              Learning Portal
+            </Button>
             <Button
               onClick={() => navigate('/auth')}
               variant="outline"
