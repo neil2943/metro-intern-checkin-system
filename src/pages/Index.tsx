@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Users, Calendar, Settings, UserPlus, LogIn } from 'lucide-react';
 import { InternsList } from '@/components/InternsList';
+import { AttendanceForm } from '@/components/AttendanceForm';
+import { AttendanceStats } from '@/components/AttendanceStats';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,11 +41,18 @@ const Index = () => {
 
       if (internsError) throw internsError;
 
-      // Fetch today's attendance
+      // Fetch today's attendance with intern details
       const today = new Date().toISOString().split('T')[0];
       const { data: attendanceData, error: attendanceError } = await supabase
         .from('attendance')
-        .select('*')
+        .select(`
+          *,
+          interns (
+            name,
+            intern_id,
+            department
+          )
+        `)
         .eq('date', today);
 
       if (attendanceError) throw attendanceError;
@@ -76,6 +85,14 @@ const Index = () => {
     }
   };
 
+  const handleAttendanceMarked = () => {
+    fetchData();
+    toast({
+      title: "Success",
+      description: "Attendance marked successfully!",
+    });
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -89,9 +106,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
               DMRC Intern Check-in System
@@ -125,7 +142,7 @@ const Index = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Interns</CardTitle>
@@ -175,6 +192,12 @@ const Index = () => {
               <p className="text-xs text-muted-foreground">Not checked in</p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Attendance Form and Stats */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <AttendanceForm onAttendanceMarked={handleAttendanceMarked} />
+          <AttendanceStats attendanceData={attendanceData} />
         </div>
 
         {/* Interns List */}
