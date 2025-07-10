@@ -60,7 +60,7 @@ CREATE POLICY "Anyone can insert admins" ON public.admins FOR INSERT WITH CHECK 
 
 -- Insert sample data
 INSERT INTO public.interns (intern_id, name, email, department, phone, start_date) VALUES
-('DMRC001', 'Rahul Sharma', 'rahul.sharma@example.com', 'Engineering', '9876543210', '2024-01-15'),
-('DMRC002', 'Priya Singh', 'priya.singh@example.com', 'Operations', '9876543211', '2024-01-15'),
-('DMRC003', 'Amit Kumar', 'amit.kumar@example.com', 'IT', '9876543212', '2024-01-20'),
-('DMRC004', 'Sneha Gupta', 'sneha.gupta@example.com', 'HR', '9876543213', '2024-01-20');
+('DMRC001', 'ADITYA MAURYA', 'adimaurya@gmail.com', 'Engineering', '9876543210', '11-09-2004'),
+('DMRC002', 'Nilesh Sherawat', 'Nilesh@gmail.com', 'IT', '9876543211', '01-01-2004'),
+('DMRC003', 'Neil Sagar', 'neilsagar661@gmail.com', 'IT', '9876543212', '01-03-2004'),
+('DMRC004', 'Yash Aggarwal', 'adityakapapa1234@gmail.com', 'HR', '9876543213', '2004-01-20');
